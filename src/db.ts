@@ -45,11 +45,11 @@ class Db {
 		return value;
 	}
 
-	public set(str: string, value: any) {
-		let dots = str.split(".");
-		let final = dots.pop();
+	public set(path: string | any[], value: any) {
+		path = Array.isArray(path) ? path : path.split(".");
+		let final = path.pop();
 
-		let field = this.get(dots, true);
+		let field = this.get(path, true);
 		field[final] = value;
 	}
 }
