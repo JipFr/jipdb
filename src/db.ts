@@ -20,7 +20,7 @@ class Db {
 			if(!this.data[key]) this.data[key] = defaults[key];
 		}
 
-		this.store();
+		this.store(false);
 
 	}
 
@@ -34,8 +34,11 @@ class Db {
 		}, doDebounce ? 15e3 : 0);	
 	}
 
-	public get(str: string, setFields = false) {
-		let value = str.split(".").reduce((p, c)=> {
+	public get(path: string | any[], setFields = false) {
+		
+		path = Array.isArray(path) ? path : path.split(".");
+		
+		let value = path.reduce((p, c)=> {
 			if(p && !p[c] && setFields) p[c] = {};
 			return (p && p[c]) ?? null;
 		}, this.data);
@@ -43,8 +46,11 @@ class Db {
 	}
 
 	public set(str: string, value: any) {
-		let field = this.get(str.split(".").slice(0, -1).join("."), true);
-		field[str.split(".").pop()] = value;
+		let dots = str.split(".");
+		let final = dots.pop();
+
+		let field = this.get(dots, true);
+		field[final] = value;
 	}
 }
 
