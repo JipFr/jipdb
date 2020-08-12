@@ -5,7 +5,7 @@ declare class Db {
     private storeDebounce;
     constructor(fileName: string, defaults?: any);
     store(doDebounce?: boolean): void;
-    get(str: string, setFields?: boolean): any;
-    set(str: string, value: any): void;
+    get(path: string | any[], setFields?: boolean): any;
+    set(path: string | any[], value: any): void;
 }
 export default Db;

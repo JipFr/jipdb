@@ -12,7 +12,7 @@ class Db {
             if (!this.data[key])
                 this.data[key] = defaults[key];
         }
-        this.store();
+        this.store(false);
     }
     store(doDebounce = true) {
         if (this.storeDebounce) {
@@ -23,17 +23,20 @@ class Db {
             fs.writeFileSync(this.file, JSON.stringify(this.data));
         }, doDebounce ? 15e3 : 0);
     }
-    get(str, setFields = false) {
-        let value = str.split(".").reduce((p, c) => {
+    get(path, setFields = false) {
+        path = Array.isArray(path) ? path : path.split(".");
+        let value = path.reduce((p, c) => {
             if (p && !p[c] && setFields)
                 p[c] = {};
             return (p && p[c]) ?? null;
         }, this.data);
         return value;
     }
-    set(str, value) {
-        let field = this.get(str.split(".").slice(0, -1).join("."), true);
-        field[str.split(".").pop()] = value;
+    set(path, value) {
+        path = Array.isArray(path) ? path : path.split(".");
+        let final = path.pop();
+        let field = this.get(path, true);
+        field[final] = value;
     }
 }
 exports.default = Db;
