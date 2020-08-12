@@ -1,0 +1,14 @@
+{
+	"name": "jipdb",
+	"version": "1.0.0",
+	"description": "Use JSON files as a database when you're lazy ;)",
+	"main": "dist/index.js",
+	"scripts": {},
+	"keywords": [],
+	"author": "Jip Fr",
+	"license": "ISC",
+	"dependencies": {
+		"@types/node": "^14.0.27",
+		"fs": "0.0.1-security"
+	}
+}
