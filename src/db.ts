@@ -51,6 +51,7 @@ class Db {
 
 		let field = this.get(path, true);
 		field[final] = value;
+		this.store();
 	}
 }
 
