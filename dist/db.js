@@ -43,6 +43,7 @@ var Db = /** @class */ (function () {
         var final = path.pop();
         var field = this.get(path, true);
         field[final] = value;
+        this.store();
     };
     return Db;
 }());
