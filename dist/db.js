@@ -5,7 +5,7 @@ var Db = /** @class */ (function () {
     function Db(fileName, defaults) {
         if (defaults === void 0) { defaults = {}; }
         this.db = this;
-        this.file = "./" + fileName;
+        this.file = fileName;
         if (!fs.existsSync(this.file))
             fs.writeFileSync(this.file, "{}");
         this.data = JSON.parse(fs.readFileSync(this.file, "utf-8"));
